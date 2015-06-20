@@ -1,6 +1,6 @@
 NAME = ticTacTicTactoe
 
-SOURCES = ticTacToe.ml
+SOURCES = ticTacToe.ml ticTacTicTacToe.ml
 
 CAMLC = ocamlc.opt
 CAMLOPT = ocamlopt.opt
