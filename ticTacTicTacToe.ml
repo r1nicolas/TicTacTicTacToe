@@ -54,55 +54,65 @@ let victory t = match t with
 
 let play p n1 n2 t : tab = match (n1, t) with
 	| (1, (Tab(s11), s12, s13, s21, s22, s23, s31, s32, s33)) ->
-		if ((TicTacToe.victory (TicTacToe.play p n2 s11)) == TicTacToe.None)
-			then (Tab(TicTacToe.play p n2 s11), s12, s13, s21, s22, s23, s31, s32, s33)
+		let s = TicTacToe.play p n2 s11 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (Tab(s), s12, s13, s21, s22, s23, s31, s32, s33)
 		else if (p = TicTacToe.O)
 			then (O, s12, s13, s21, s22, s23, s31, s32, s33)
 			else (X, s12, s13, s21, s22, s23, s31, s32, s33)
-	| (2, (s11, Tab(s12), s13, s21, s22, s23, s31, s32, s33)) -> 
-		if ((TicTacToe.victory (TicTacToe.play p n2 s12)) == TicTacToe.None)
-			then (s11, Tab(TicTacToe.play p n2 s12), s13, s21, s22, s23, s31, s32, s33)
+	| (2, (s11, Tab(s12), s13, s21, s22, s23, s31, s32, s33)) ->
+		let s = TicTacToe.play p n2 s12 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (s11, Tab(s), s13, s21, s22, s23, s31, s32, s33)
 		else if (p = TicTacToe.O)
 			then (s11, O, s13, s21, s22, s23, s31, s32, s33)
 			else (s11, X, s13, s21, s22, s23, s31, s32, s33)
-	| (3, (s11, s12, Tab(s13), s21, s22, s23, s31, s32, s33)) ->		if ((TicTacToe.victory (TicTacToe.play p n2 s13)) == TicTacToe.None)
-			then (s11, s12, Tab(TicTacToe.play p n2 s13), s21, s22, s23, s31, s32, s33)
+	| (3, (s11, s12, Tab(s13), s21, s22, s23, s31, s32, s33)) ->
+		let s = TicTacToe.play p n2 s13 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (s11, s12, Tab(s), s21, s22, s23, s31, s32, s33)
 		else if (p = TicTacToe.O)
 			then (s11, s12, O, s21, s22, s23, s31, s32, s33)
 			else (s11, s12, X, s21, s22, s23, s31, s32, s33)
 	| (4, (s11, s12, s13, Tab(s21), s22, s23, s31, s32, s33)) ->
-		if ((TicTacToe.victory (TicTacToe.play p n2 s21)) == TicTacToe.None)
-			then (s11, s12, s13, Tab(TicTacToe.play p n2 s21), s22, s23, s31, s32, s33)
+		let s = TicTacToe.play p n2 s21 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (s11, s12, s13, Tab(s), s22, s23, s31, s32, s33)
 		else if (p = TicTacToe.O)
 			then (s11, s12, s13, O, s22, s23, s31, s32, s33)
 			else (s11, s12, s13, X, s22, s23, s31, s32, s33)
 	| (5, (s11, s12, s13, s21, Tab(s22), s23, s31, s32, s33)) ->
-		if ((TicTacToe.victory (TicTacToe.play p n2 s22)) == TicTacToe.None)
-			then (s11, s12, s13, s21, Tab(TicTacToe.play p n2 s22), s23, s31, s32, s33)
+		let s = TicTacToe.play p n2 s22 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (s11, s12, s13, s21, Tab(s), s23, s31, s32, s33)
 		else if (p = TicTacToe.O)
 			then (s11, s12, s13, s21, O, s23, s31, s32, s33)
 			else (s11, s12, s13, s21, X, s23, s31, s32, s33)
 	| (6, (s11, s12, s13, s21, s22, Tab(s23), s31, s32, s33)) ->
-		if ((TicTacToe.victory (TicTacToe.play p n2 s23)) == TicTacToe.None)
-			then (s11, s12, s13, s21, s22, Tab(TicTacToe.play p n2 s23), s31, s32, s33)
+		let s = TicTacToe.play p n2 s23 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (s11, s12, s13, s21, s22, Tab(s), s31, s32, s33)
 		else if (p = TicTacToe.O)
 			then (s11, s12, s13, s21, s22, O, s31, s32, s33)
 			else (s11, s12, s13, s21, s22, X, s31, s32, s33)
 	| (7, (s11, s12, s13, s21, s22, s23, Tab(s31), s32, s33)) ->
-		if ((TicTacToe.victory (TicTacToe.play p n2 s31)) == TicTacToe.None)
-			then (s11, s12, s13, s21, s22, s23, Tab(TicTacToe.play p n2 s31), s32, s33)
+		let s = TicTacToe.play p n2 s31 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (s11, s12, s13, s21, s22, s23, Tab(s), s32, s33)
 		else if (p = TicTacToe.O)
 			then (s11, s12, s13, s21, s22, s23, O, s32, s33)
 			else (s11, s12, s13, s21, s22, s23, X, s32, s33)
 	| (8, (s11, s12, s13, s21, s22, s23, s31, Tab(s32), s33)) ->
-		if ((TicTacToe.victory (TicTacToe.play p n2 s32)) == TicTacToe.None)
-			then (s11, s12, s13, s21, s22, s23, s31, Tab(TicTacToe.play p n2 s32), s33)
+		let s = TicTacToe.play p n2 s32 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (s11, s12, s13, s21, s22, s23, s31, Tab(s), s33)
 		else if (p = TicTacToe.O)
 			then (s11, s12, s13, s21, s22, s23, s31, O, s33)
 			else (s11, s12, s13, s21, s22, s23, s31, X, s33)
 	| (9, (s11, s12, s13, s21, s22, s23, s31, s32, Tab(s33))) ->
-		if ((TicTacToe.victory (TicTacToe.play p n2 s33)) == TicTacToe.None)
-			then (s11, s12, s13, s21, s22, s23, s31, s32, Tab(TicTacToe.play p n2 s33))
+		let s = TicTacToe.play p n2 s33 in
+		if (((TicTacToe.victory s) == TicTacToe.None) && (not (TicTacToe.draw s)))
+			then (s11, s12, s13, s21, s22, s23, s31, s32, Tab(s))
 		else if (p = TicTacToe.O)
 			then (s11, s12, s13, s21, s22, s23, s31, s32, O)
 			else (s11, s12, s13, s21, s22, s23, s31, s32, X)
@@ -130,11 +140,11 @@ let game p t =
 		else if (playable ((int_of_char s.[0]) - (int_of_char '0')) ((int_of_char s.[2]) - (int_of_char '0')) t)
 			then begin
 				let t = play p ((int_of_char s.[0]) - (int_of_char '0')) ((int_of_char s.[2]) - (int_of_char '0')) t in
-				 match (victory t) with
+						print_string (tabToString t);
+				match (victory t) with
 					| PO -> PO
 					| PX -> PX
 					| None ->
-						print_string (tabToString t);
 						print_endline ((TicTacToe.squareToString (TicTacToe.other p)) ^ "'s turn to play");
 						game_tail (read_line ()) (TicTacToe.other p) t
 			end

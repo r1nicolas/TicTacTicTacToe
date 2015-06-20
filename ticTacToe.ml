@@ -21,6 +21,21 @@ let victory t = match t with
 	| (_, _, X, _, _, X, _, _, X) -> X
 	| _ -> None
 
+let draw t =
+	if ((victory t) != None)
+		then false
+	else match t with
+		| (None, _, _, _, _, _, _, _, _)
+		| (_, None, _, _, _, _, _, _, _)
+		| (_, _, None, _, _, _, _, _, _)
+		| (_, _, _, None, _, _, _, _, _)
+		| (_, _, _, _, None, _, _, _, _)
+		| (_, _, _, _, _, None, _, _, _)
+		| (_, _, _, _, _, _, None, _, _)
+		| (_, _, _, _, _, _, _, None, _)
+		| (_, _, _, _, _, _, _, _, None) -> false
+		| _ -> true
+
 let play p n (s11, s12, s13, s21, s22, s23, s31, s32, s33) = match n with
 	| 1 -> (p, s12, s13, s21, s22, s23, s31, s32, s33)
 	| 2 -> (s11, p, s13, s21, s22, s23, s31, s32, s33)
