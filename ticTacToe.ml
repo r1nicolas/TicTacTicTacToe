@@ -31,7 +31,7 @@ let play p n (s11, s12, s13, s21, s22, s23, s31, s32, s33) = match n with
 	| 7 -> (s11, s12, s13, s21, s22, s23, p, s32, s33)
 	| 8 -> (s11, s12, s13, s21, s22, s23, s31, p, s33)
 	| 9 -> (s11, s12, s13, s21, s22, s23, s31, s32, p)
-	| _ -> invalid_argument "tab only have 9 square"
+	| _ -> invalid_arg "tab only have 9 square"
 
 let playable n (s11, s12, s13, s21, s22, s23, s31, s32, s33) = match n with
 	| 1 -> if (s11 == None) then true else false
@@ -47,7 +47,7 @@ let playable n (s11, s12, s13, s21, s22, s23, s31, s32, s33) = match n with
 
 let squareToString s = match s with
 	| X -> "X"
-	| O -> "o"
+	| O -> "O"
 	| None -> "-"
 
 let line1ToString (s11, s12, s13, s21, s22, s23, s31, s32, s33) =
@@ -58,3 +58,8 @@ let line2ToString (s11, s12, s13, s21, s22, s23, s31, s32, s33) =
 
 let line3ToString (s11, s12, s13, s21, s22, s23, s31, s32, s33) =
 	(squareToString s31) ^ " " ^ (squareToString s32) ^ " " ^ (squareToString s33)
+
+let other s = match s with
+	| X -> O
+	| O -> X
+	| None -> None
