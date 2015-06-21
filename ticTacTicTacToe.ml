@@ -1,4 +1,4 @@
-type player = PX | PO | None
+type endOfGame = VX | VO | Draw | None
 
 type square = Tab of TicTacToe.tab | O | X
 
@@ -33,7 +33,7 @@ let tabToString (s11, s12, s13, s21, s22, s23, s31, s32, s33) =
 	(squarel3ToString s31) ^ " | " ^ (squarel3ToString s32) ^ " | " ^ (squarel3ToString s33) ^ "\n"
 
 
-let victory t = match t with
+let endOfGame t = match t with
 	| (O, O, O, _, _, _, _, _, _)
 	| (_, _, _, O, O, O, _, _, _)
 	| (_, _, _, _, _, _, O, O, O)
@@ -41,7 +41,7 @@ let victory t = match t with
 	| (_, _, O, _, O, _, O, _, _)
 	| (O, _, _, O, _, _, O, _, _)
 	| (_, O, _, _, O, _, _, O, _)
-	| (_, _, O, _, _, O, _, _, O) -> PO
+	| (_, _, O, _, _, O, _, _, O) -> VO
 	| (X, X, X, _, _, _, _, _, _)
 	| (_, _, _, X, X, X, _, _, _)
 	| (_, _, _, _, _, _, X, X, X)
@@ -49,8 +49,23 @@ let victory t = match t with
 	| (_, _, X, _, X, _, X, _, _)
 	| (X, _, _, X, _, _, X, _, _)
 	| (_, X, _, _, X, _, _, X, _)
-	| (_, _, X, _, _, X, _, _, X) -> PX
-	| _ -> None
+	| (_, _, X, _, _, X, _, _, X) -> VX
+	| (Tab(x), _, _, _, _, _, _, _, _)
+	| (_, Tab(x), _, _, _, _, _, _, _)
+	| (_, _, Tab(x), _, _, _, _, _, _)
+	| (_, _, _, Tab(x), _, _, _, _, _)
+	| (_, _, _, _, Tab(x), _, _, _, _)
+	| (_, _, _, _, _, Tab(x), _, _, _)
+	| (_, _, _, _, _, _, Tab(x), _, _)
+	| (_, _, _, _, _, _, _, Tab(x), _)
+	| (_, _, _, _, _, _, _, _, Tab(x)) -> None
+	| _ -> Draw
+
+let endToString e = match e with
+	| VX -> "X wins the game!"
+	| VO -> "O wins the game!"
+	| Draw -> "Draw!"
+	| None -> "U wot m8?"
 
 let play p n1 n2 t : tab = match (n1, t) with
 	| (1, (Tab(s11), s12, s13, s21, s22, s23, s31, s32, s33)) ->
@@ -140,10 +155,11 @@ let game p t =
 		else if (playable ((int_of_char s.[0]) - (int_of_char '0')) ((int_of_char s.[2]) - (int_of_char '0')) t)
 			then begin
 				let t = play p ((int_of_char s.[0]) - (int_of_char '0')) ((int_of_char s.[2]) - (int_of_char '0')) t in
-						print_string (tabToString t);
-				match (victory t) with
-					| PO -> PO
-					| PX -> PX
+				print_string (tabToString t);
+				match (endOfGame t) with
+					| VO -> VO
+					| VX -> VX
+					| Draw -> Draw
 					| None ->
 						print_endline ((TicTacToe.squareToString (TicTacToe.other p)) ^ "'s turn to play");
 						game_tail (read_line ()) (TicTacToe.other p) t
@@ -168,6 +184,4 @@ let empty_tab = (Tab(TicTacToe.None, TicTacToe.None, TicTacToe.None, TicTacToe.N
 				 Tab(TicTacToe.None, TicTacToe.None, TicTacToe.None, TicTacToe.None, TicTacToe.None, TicTacToe.None, TicTacToe.None, TicTacToe.None, TicTacToe.None))
 
 let () =
-	if ((game TicTacToe.O empty_tab) == PO)
-		then print_endline "O wins the game!"
-		else print_endline "X wins the game!"
+	print_endline (endToString(game TicTacToe.O empty_tab))
