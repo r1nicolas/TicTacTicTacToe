@@ -134,15 +134,15 @@ let play p n1 n2 t : tab = match (n1, t) with
 	| _ -> invalid_arg "invalid tab"
 
 let playable n1 n2 t = match (n1, t) with
-	| (1, (Tab(s11), s12, s13, s21, s22, s23, s31, s32, s33)) -> if (TicTacToe.playable n2 s11) then true else false
-	| (2, (s11, Tab(s12), s13, s21, s22, s23, s31, s32, s33)) -> if (TicTacToe.playable n2 s12) then true else false
-	| (3, (s11, s12, Tab(s13), s21, s22, s23, s31, s32, s33)) -> if (TicTacToe.playable n2 s13) then true else false
-	| (4, (s11, s12, s13, Tab(s21), s22, s23, s31, s32, s33)) -> if (TicTacToe.playable n2 s21) then true else false
-	| (5, (s11, s12, s13, s21, Tab(s22), s23, s31, s32, s33)) -> if (TicTacToe.playable n2 s22) then true else false
-	| (6, (s11, s12, s13, s21, s22, Tab(s23), s31, s32, s33)) -> if (TicTacToe.playable n2 s23) then true else false
-	| (7, (s11, s12, s13, s21, s22, s23, Tab(s31), s32, s33)) -> if (TicTacToe.playable n2 s31) then true else false
-	| (8, (s11, s12, s13, s21, s22, s23, s31, Tab(s32), s33)) -> if (TicTacToe.playable n2 s32) then true else false
-	| (9, (s11, s12, s13, s21, s22, s23, s31, s32, Tab(s33))) -> if (TicTacToe.playable n2 s33) then true else false
+	| (1, (Tab(s11), s12, s13, s21, s22, s23, s31, s32, s33)) -> TicTacToe.playable n2 s11
+	| (2, (s11, Tab(s12), s13, s21, s22, s23, s31, s32, s33)) -> TicTacToe.playable n2 s12
+	| (3, (s11, s12, Tab(s13), s21, s22, s23, s31, s32, s33)) -> TicTacToe.playable n2 s13
+	| (4, (s11, s12, s13, Tab(s21), s22, s23, s31, s32, s33)) -> TicTacToe.playable n2 s21
+	| (5, (s11, s12, s13, s21, Tab(s22), s23, s31, s32, s33)) -> TicTacToe.playable n2 s22
+	| (6, (s11, s12, s13, s21, s22, Tab(s23), s31, s32, s33)) -> TicTacToe.playable n2 s23
+	| (7, (s11, s12, s13, s21, s22, s23, Tab(s31), s32, s33)) -> TicTacToe.playable n2 s31
+	| (8, (s11, s12, s13, s21, s22, s23, s31, Tab(s32), s33)) -> TicTacToe.playable n2 s32
+	| (9, (s11, s12, s13, s21, s22, s23, s31, s32, Tab(s33))) -> TicTacToe.playable n2 s33
 	| _ -> false
 
 let game p t =
